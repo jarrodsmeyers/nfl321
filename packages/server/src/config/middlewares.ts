@@ -37,6 +37,6 @@ const decodeIdToken = async (
 };
 
 router.use(cors());
-// router.use(decodeIdToken);
+router.use(decodeIdToken);
 
 export default router;
