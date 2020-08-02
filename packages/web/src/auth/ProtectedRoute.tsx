@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useContext } from "react";
-import { Route, useNavigate } from "react-router-dom";
+import { Route, Navigate } from "react-router-dom";
 
 import type { ReactElement } from "react";
 
@@ -12,14 +12,13 @@ interface Props {
 }
 
 const ProtectedRoute = ({ path, element, ...props }: Props) => {
-  const navigate = useNavigate();
   const { user } = useContext(AuthContext);
 
-  if (!user?.uid) {
-    navigate("/login");
-  }
-
-  return <Route path={path} element={element} {...props} />;
+  return user ? (
+    <Route path={path} element={element} {...props} />
+  ) : (
+    <Navigate to="/login" />
+  );
 };
 
 export default ProtectedRoute;

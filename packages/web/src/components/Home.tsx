@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 
+import firebase from "../firebase";
 import { getScoresByWeek } from "../api";
 
 interface Score {
@@ -31,7 +32,12 @@ const Home = () => {
 
   return (
     <>
-      <button type="button" onClick={() => {}}>
+      <button
+        type="button"
+        onClick={() => {
+          firebase.auth().signOut();
+        }}
+      >
         Log Out
       </button>
 

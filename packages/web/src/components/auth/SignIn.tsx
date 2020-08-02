@@ -1,20 +1,22 @@
+/* eslint-disable react/no-unescaped-entities */
 import React from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
 
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
-import { makeStyles } from "@material-ui/core/styles";
 import {
   Avatar,
   Button,
   CssBaseline,
   TextField,
-  FormControlLabel,
-  Checkbox,
-  Link,
+  Link as MuiLink,
   Grid,
-  Box,
   Typography,
   Container,
 } from "@material-ui/core";
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import { makeStyles } from "@material-ui/core/styles";
+
+import firebase from "../../firebase";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -36,8 +38,24 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+interface LoginData {
+  email: string;
+  password: string;
+}
+
 const SignIn = () => {
   const classes = useStyles();
+  const navigate = useNavigate();
+  const { register, handleSubmit } = useForm();
+
+  const handleLogin = async ({ email, password }: LoginData) => {
+    try {
+      await firebase.auth().signInWithEmailAndPassword(email, password);
+      navigate("/");
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <Container component="main" maxWidth="xs">
@@ -49,8 +67,13 @@ const SignIn = () => {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <form className={classes.form} noValidate>
+        <form
+          className={classes.form}
+          noValidate
+          onSubmit={handleSubmit((data: LoginData) => handleLogin(data))}
+        >
           <TextField
+            inputRef={register}
             variant="outlined"
             margin="normal"
             required
@@ -62,6 +85,7 @@ const SignIn = () => {
             autoFocus
           />
           <TextField
+            inputRef={register}
             variant="outlined"
             margin="normal"
             required
@@ -71,10 +95,6 @@ const SignIn = () => {
             type="password"
             id="password"
             autoComplete="current-password"
-          />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
           />
           <Button
             type="submit"
@@ -87,14 +107,14 @@ const SignIn = () => {
           </Button>
           <Grid container>
             <Grid item xs>
-              <Link href="#" variant="body2">
+              <MuiLink component={Link} to="/forgot-password" variant="body2">
                 Forgot password?
-              </Link>
+              </MuiLink>
             </Grid>
             <Grid item>
-              <Link href="#" variant="body2">
+              <MuiLink component={Link} to="/register" variant="body2">
                 Don't have an account? Sign Up
-              </Link>
+              </MuiLink>
             </Grid>
           </Grid>
         </form>
