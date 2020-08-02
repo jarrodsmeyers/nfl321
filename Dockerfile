@@ -3,7 +3,6 @@ FROM node:latest
 WORKDIR /usr/src/app
 
 COPY packages/server .
-RUN npm i -g yarn
 RUN yarn
 
 RUN yarn build
