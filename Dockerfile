@@ -3,7 +3,6 @@ FROM node:latest
 WORKDIR /usr/src/app
 
 COPY packages/server .
-COPY /home/dokku/nfl321-firebase-admin.json .
 RUN yarn
 
 RUN yarn build
