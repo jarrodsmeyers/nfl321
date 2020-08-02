@@ -1,0 +1,4 @@
+{"message":"::1 - - [01/Aug/2020:21:06:16 +0000] \"OPTIONS /scores?week=1 HTTP/1.1\" 204 0\n","level":"info","service":"user-service"}
+{"message":"::1 - - [01/Aug/2020:21:06:16 +0000] \"GET /scores?week=1 HTTP/1.1\" 200 3\n","level":"info","service":"user-service"}
+{"message":"::1 - - [01/Aug/2020:21:09:12 +0000] \"OPTIONS /scores?week=1 HTTP/1.1\" 204 0\n","level":"info"}
+{"message":"::1 - - [01/Aug/2020:21:09:12 +0000] \"GET /scores?week=1 HTTP/1.1\" 304 -\n","level":"info"}

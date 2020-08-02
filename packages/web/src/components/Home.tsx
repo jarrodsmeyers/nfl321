@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useAuth0 } from "@auth0/auth0-react";
 
 import { getScoresByWeek } from "../api";
 
@@ -18,14 +17,11 @@ const Home = () => {
   const [scores, setScores] = useState<Score[]>([]);
   const [week, setWeek] = useState("0");
 
-  const { logout, getAccessTokenSilently } = useAuth0();
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     try {
-      const token = await getAccessTokenSilently();
-      const { data } = await getScoresByWeek(token, week);
+      const { data } = await getScoresByWeek(week);
 
       setScores(data);
     } catch (err) {
@@ -35,7 +31,7 @@ const Home = () => {
 
   return (
     <>
-      <button type="button" onClick={() => logout()}>
+      <button type="button" onClick={() => {}}>
         Log Out
       </button>
 

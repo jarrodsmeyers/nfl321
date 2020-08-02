@@ -1,17 +1,25 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { ComponentType } from "react";
-import { Route } from "react-router-dom";
-import { withAuthenticationRequired } from "@auth0/auth0-react";
+import React, { useContext } from "react";
+import { Route, useNavigate } from "react-router-dom";
+
+import type { ReactElement } from "react";
+
+import { AuthContext } from "../contexts";
 
 interface Props {
-  element: ComponentType;
+  element: ReactElement;
   path: string;
 }
 
-const ProtectedRoute = ({ element, path, ...args }: Props) => {
-  const AuthElement = withAuthenticationRequired(element);
+const ProtectedRoute = ({ path, element, ...props }: Props) => {
+  const navigate = useNavigate();
+  const { user } = useContext(AuthContext);
 
-  return <Route path={path} element={<AuthElement />} {...args} />;
+  if (!user?.uid) {
+    navigate("/login");
+  }
+
+  return <Route path={path} element={element} {...props} />;
 };
 
 export default ProtectedRoute;

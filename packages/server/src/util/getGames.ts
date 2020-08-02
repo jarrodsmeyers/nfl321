@@ -2,6 +2,7 @@ import axios from "axios";
 import { parse } from "node-html-parser";
 
 import dotenv from "dotenv";
+import logger from "../config/logger";
 
 dotenv.config();
 
@@ -52,7 +53,7 @@ const getGames = async (week: string): Promise<Array<GameResult>> => {
 
     return gameResults;
   } catch (err) {
-    console.error(err);
+    logger.error(err);
     return null;
   }
 };

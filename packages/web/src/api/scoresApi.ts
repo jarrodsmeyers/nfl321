@@ -1,10 +1,5 @@
 /* eslint-disable import/prefer-default-export */
-import request from "./client";
+import getAxiosClient from "./client";
 
-export const getScoresByWeek = (token: string, week: string) => {
-  return request.get(`/scores?week=${week}`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-};
+export const getScoresByWeek = (week: string) =>
+  getAxiosClient().then((axios) => axios.get(`/scores?week=${week}`));

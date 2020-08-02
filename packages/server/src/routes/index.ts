@@ -1,9 +1,9 @@
 import { Router } from "express";
 
-import games from "./games";
+import actions from "./actions";
 
 const router = Router();
 
-router.use("/games", games);
+router.use("/actions", actions);
 
 export default router;

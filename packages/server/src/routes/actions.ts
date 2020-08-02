@@ -1,30 +1,30 @@
+/* eslint-disable no-await-in-loop */
+/* eslint-disable no-restricted-syntax */
 import { Router } from "express";
 
 import GameModel from "../models/game";
 import getGames from "../util/getGames";
+import logger from "../config/logger";
 
 const router = Router();
 
 router.post("/load-schedule", async (req, res) => {
   try {
-    // eslint-disable-next-line no-restricted-syntax
     for (const week of Array(16).keys()) {
-      // eslint-disable-next-line no-await-in-loop
       const games = await getGames(String(week + 1));
 
       games.forEach((game) => new GameModel(game).save());
     }
     res.sendStatus(201);
   } catch (err) {
-    res.status(500).send(err);
+    logger.error(err);
+    res.sendStatus(500);
   }
 });
 
 router.put("/update-scores", async (req, res) => {
   try {
-    // eslint-disable-next-line no-restricted-syntax
     for (const week of Array(16).keys()) {
-      // eslint-disable-next-line no-await-in-loop
       const games = await getGames(String(week + 1));
 
       games.forEach((game) => {
@@ -43,7 +43,8 @@ router.put("/update-scores", async (req, res) => {
     }
     res.sendStatus(204);
   } catch (err) {
-    res.status(500).send(err);
+    logger.error(err);
+    res.sendStatus(500);
   }
 });
 
