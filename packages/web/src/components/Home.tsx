@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 
 import firebase from "../firebase";
-import { getScoresByWeek } from "../api";
+import { getScoresByWeek, loadSchedule } from "../api";
+import { AuthContext } from "../contexts";
 
 interface Score {
   home: {
@@ -17,6 +18,8 @@ interface Score {
 const Home = () => {
   const [scores, setScores] = useState<Score[]>([]);
   const [week, setWeek] = useState("0");
+
+  const { user } = useContext(AuthContext);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -67,6 +70,15 @@ const Home = () => {
             </li>
           ))}
         </ul>
+
+        {user?.uid === "KC8XuHXRmNfNjT9ZGBPuZ0uEl3r1" && (
+          <>
+            <h1>ADMIN</h1>
+            <button type="button" onClick={() => loadSchedule()}>
+              Load Schedule
+            </button>
+          </>
+        )}
       </main>
     </>
   );

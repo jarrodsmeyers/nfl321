@@ -1,5 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
 
 import {
   Avatar,
@@ -13,6 +14,8 @@ import {
 } from "@material-ui/core";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import { makeStyles } from "@material-ui/core/styles";
+
+import firebase from "../../firebase";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -34,8 +37,32 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+interface SignUpData {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+}
+
 export default function SignUp() {
   const classes = useStyles();
+  const navigate = useNavigate();
+  const { register, handleSubmit } = useForm();
+
+  const handleSignUp = async ({
+    firstName,
+    lastName,
+    email,
+    password,
+  }: SignUpData) => {
+    try {
+      console.log(`Welcome ${firstName} ${lastName}`);
+      await firebase.auth().createUserWithEmailAndPassword(email, password);
+      navigate("/");
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   return (
     <Container component="main" maxWidth="xs">
@@ -47,10 +74,15 @@ export default function SignUp() {
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <form className={classes.form} noValidate>
+        <form
+          className={classes.form}
+          noValidate
+          onSubmit={handleSubmit((data: SignUpData) => handleSignUp(data))}
+        >
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
+                inputRef={register}
                 autoComplete="fname"
                 name="firstName"
                 variant="outlined"
@@ -63,6 +95,7 @@ export default function SignUp() {
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
+                inputRef={register}
                 variant="outlined"
                 required
                 fullWidth
@@ -74,6 +107,7 @@ export default function SignUp() {
             </Grid>
             <Grid item xs={12}>
               <TextField
+                inputRef={register}
                 variant="outlined"
                 required
                 fullWidth
@@ -85,6 +119,7 @@ export default function SignUp() {
             </Grid>
             <Grid item xs={12}>
               <TextField
+                inputRef={register}
                 variant="outlined"
                 required
                 fullWidth
