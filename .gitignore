@@ -1,3 +1,5 @@
 node_modules
 logs
 nfl321-firebase-admin.json
+build
+dist
