@@ -5,7 +5,6 @@ WORKDIR /usr/src/app
 COPY packages/server .
 
 RUN ls .
-RUN ls /storage
 
 RUN yarn
 RUN yarn build
