@@ -53,7 +53,7 @@ const SignIn = () => {
       await firebase.auth().signInWithEmailAndPassword(email, password);
       navigate("/");
     } catch (err) {
-      console.log(err);
+      // console.log(err);
     }
   };
 

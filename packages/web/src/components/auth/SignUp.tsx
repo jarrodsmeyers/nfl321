@@ -50,17 +50,17 @@ export default function SignUp() {
   const { register, handleSubmit } = useForm();
 
   const handleSignUp = async ({
-    firstName,
-    lastName,
+    // _firstName,
+    // _lastName,
     email,
     password,
   }: SignUpData) => {
     try {
-      console.log(`Welcome ${firstName} ${lastName}`);
+      // console.log(`Welcome ${firstName} ${lastName}`);
       await firebase.auth().createUserWithEmailAndPassword(email, password);
       navigate("/");
     } catch (err) {
-      console.error(err);
+      // console.error(err);
     }
   };
 
