@@ -5,6 +5,9 @@ WORKDIR /usr/src/app
 COPY packages/server .
 RUN yarn
 
+RUN ls .
+RUN ls /storage
+
 RUN yarn build
 
 ENV NODE_ENV=production
