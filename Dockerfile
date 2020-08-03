@@ -4,10 +4,10 @@ WORKDIR /usr/src/app
 
 COPY packages/server .
 
-RUN ls .
-
 RUN yarn
 RUN yarn build
+
+RUN ls .
 
 ENV NODE_ENV=production
 ENV CURRENT_SEASON=2019
