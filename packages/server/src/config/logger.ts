@@ -9,6 +9,9 @@ const logger = winston.createLogger({
   level: "info",
   format: winston.format.json(),
   transports: [
+    new winston.transports.Console({
+      format: winston.format.simple(),
+    }),
     new winston.transports.File({
       filename: `${appRoot}/logs/error.log`,
       level: "error",
@@ -16,14 +19,6 @@ const logger = winston.createLogger({
     new winston.transports.File({ filename: `${appRoot}/logs/combined.log` }),
   ],
 });
-
-if (process.env.NODE_ENV !== "production") {
-  logger.add(
-    new winston.transports.Console({
-      format: winston.format.simple(),
-    })
-  );
-}
 
 logger.stream = <any>{
   write: (message: string) => {
