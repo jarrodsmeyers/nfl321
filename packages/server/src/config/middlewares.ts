@@ -7,13 +7,6 @@ import logger from "./logger";
 
 const router = Router();
 
-// admin.initializeApp({
-//   credential: admin.credential.cert(
-//     JSON.parse(Buffer.from(process.env.FIREBASE_CONFIG, "base64").toString())
-//   ),
-//   databaseURL: "https://nfl321-dd967.firebaseio.com",
-// });
-
 admin.initializeApp({
   credential: admin.credential.applicationDefault(),
   databaseURL: "https://nfl321-dd967.firebaseio.com",
@@ -43,7 +36,7 @@ const decodeIdToken = async (
   next();
 };
 
-router.use(cors({ origin: [/\.nfl321\.com$/, "http://localhost:9999"] }));
+router.use(cors());
 router.use(decodeIdToken);
 
 export default router;
