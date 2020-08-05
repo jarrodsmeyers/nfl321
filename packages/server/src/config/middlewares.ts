@@ -7,10 +7,15 @@ import logger from "./logger";
 
 const router = Router();
 
+// admin.initializeApp({
+//   credential: admin.credential.cert(
+//     JSON.parse(Buffer.from(process.env.FIREBASE_CONFIG, "base64").toString())
+//   ),
+//   databaseURL: "https://nfl321-dd967.firebaseio.com",
+// });
+
 admin.initializeApp({
-  credential: admin.credential.cert(
-    JSON.parse(Buffer.from(process.env.FIREBASE_CONFIG, "base64").toString())
-  ),
+  credential: admin.credential.applicationDefault(),
   databaseURL: "https://nfl321-dd967.firebaseio.com",
 });
 
