@@ -38,7 +38,7 @@ const decodeIdToken = async (
   next();
 };
 
-router.use(cors());
+router.use(cors({ origin: [/\.nfl321\.com$/, "http://localhost:9999"] }));
 router.use(decodeIdToken);
 
 export default router;
